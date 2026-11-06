@@ -22,7 +22,7 @@ export function Footer() {
         </div>
         {footer.columns.map((c) => (
           <div key={c.title} className={c.title === 'Resources' ? 'col-span-2 md:col-span-1' : undefined}>
-            <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/55">{c.title}</h3>
+            <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/80">{c.title}</h3>
             <ul className={cn('mt-3 grid gap-2 md:mt-4 md:gap-2.5', c.title === 'Resources' && 'grid-cols-2 md:grid-cols-1')}>
               {c.links.map((l) => (
                 <li key={l.label}>

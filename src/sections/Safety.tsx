@@ -133,7 +133,7 @@ function NextAction({ reduce }: { reduce: boolean }) {
         <Timer className="size-3.5 text-primary" aria-hidden /> Next action in
       </span>
       <span className="font-mono tabular-nums text-primary">
-        {m}m {s}s <span className="text-t3">· randomised</span>
+        {m}m {s}s <span className="text-t2">· randomised</span>
       </span>
     </p>
   )
