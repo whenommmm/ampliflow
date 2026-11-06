@@ -103,7 +103,7 @@ export const personas = {
     { key: 'sdrs', label: 'Sales & SDR teams', body: 'Hit quota with steady, safe pipeline. Connection requests and follow ups send on autopilot, every day.', href: `${AF}/for/sdrs` },
     { key: 'recruiters', label: 'Recruiters', body: 'Source and reach qualified candidates daily, without putting your LinkedIn account at risk.', href: `${AF}/for/recruiters` },
     { key: 'agencies', label: 'Agencies', body: 'Run safe, separated campaigns across every client account from one shared workspace.', href: `${AF}/for/agencies` },
-  ],
+  ] as const,
 }
 
 export const features = {

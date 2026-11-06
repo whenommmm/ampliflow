@@ -2,12 +2,13 @@ import { LinkedInIcon } from '@/components/icons'
 import { Logo } from '@/components/Logo'
 import { concept, footer } from '@/content/site'
 import { setNotesOpen } from '@/notes/notesStore'
+import { cn } from '@/lib/cn'
 
 export function Footer() {
   return (
     <footer className="bg-primary text-white">
-      <div className="mx-auto grid max-w-[1120px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]">
-        <div>
+      <div className="mx-auto grid max-w-[1120px] grid-cols-2 gap-x-6 gap-y-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)] md:gap-10 md:py-14">
+        <div className="col-span-2 md:col-span-1">
           <Logo className="h-6 w-auto text-white" />
           <p className="mt-4 max-w-[300px] text-sm leading-relaxed text-white/75">{footer.blurb}</p>
           <div className="mt-5 flex items-center gap-3">
@@ -20,9 +21,9 @@ export function Footer() {
           </div>
         </div>
         {footer.columns.map((c) => (
-          <div key={c.title}>
+          <div key={c.title} className={c.title === 'Resources' ? 'col-span-2 md:col-span-1' : undefined}>
             <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/55">{c.title}</h3>
-            <ul className="mt-4 grid gap-2.5">
+            <ul className={cn('mt-3 grid gap-2 md:mt-4 md:gap-2.5', c.title === 'Resources' && 'grid-cols-2 md:grid-cols-1')}>
               {c.links.map((l) => (
                 <li key={l.label}>
                   <a href={l.href} className="text-sm text-white/90 hover:text-white hover:underline hover:underline-offset-4">

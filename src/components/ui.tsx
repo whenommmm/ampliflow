@@ -73,7 +73,7 @@ export function SectionHead({
   return (
     <div className={cn('max-w-2xl', align === 'center' && 'mx-auto text-center', className)}>
       <MonoLabel>{eyebrow}</MonoLabel>
-      <h2 className="mt-4 text-[30px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">{title}</h2>
+      <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">{title}</h2>
       {sub && <p className="mt-3 text-[15px] leading-relaxed text-pretty text-t2 sm:text-base">{sub}</p>}
     </div>
   )

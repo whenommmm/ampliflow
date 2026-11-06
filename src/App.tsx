@@ -3,6 +3,11 @@ import { Ribbon } from '@/sections/Ribbon'
 import { Nav } from '@/sections/Nav'
 import { Hero } from '@/sections/Hero'
 import { ProductDemo } from '@/sections/ProductDemo'
+import { ProofStrip } from '@/sections/ProofStrip'
+import { Safety } from '@/sections/Safety'
+import { Personas } from '@/sections/Personas'
+import { Features } from '@/sections/Features'
+import { HowItWorks } from '@/sections/HowItWorks'
 import { ClosingCta } from '@/sections/ClosingCta'
 import { Footer } from '@/sections/Footer'
 import { StickyCta } from '@/sections/StickyCta'
@@ -15,6 +20,11 @@ export default function App() {
       <main>
         <Hero />
         <ProductDemo />
+        <ProofStrip />
+        <Safety />
+        <Personas />
+        <Features />
+        <HowItWorks />
         <ClosingCta />
       </main>
       <Footer />

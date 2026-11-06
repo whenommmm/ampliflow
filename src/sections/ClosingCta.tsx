@@ -5,9 +5,9 @@ import { closing, links } from '@/content/site'
 
 export function ClosingCta() {
   return (
-    <Section id="closing" className="py-16 sm:py-24">
+    <Section id="closing" className="py-10 sm:py-24">
       <Container>
-        <div className="relative overflow-hidden rounded-2xl bg-primary px-5 py-12 text-center text-white sm:px-12 sm:py-16">
+        <div className="relative overflow-hidden rounded-2xl bg-primary px-5 py-10 text-center text-white sm:px-12 sm:py-16">
           <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgb(255_255_255/0.16)_1px,transparent_1px)] bg-[size:18px_18px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_100%,black,transparent)]" />
           <div aria-hidden className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[640px] -translate-x-1/2 rounded-full bg-white/15 blur-3xl" />
           <div className="relative flex flex-col items-center">
