@@ -1,10 +1,7 @@
 // @ts-nocheck — vendored from ibelick/motion-primitives (MIT), kept as upstream
 'use client';
 import { cn } from '@/lib/cn';
-import {
-  AnimatePresence,
-  motion
-} from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import type {
   TargetAndTransition,
   Transition,
