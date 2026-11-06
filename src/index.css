@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #2f37d9;
+  --color-primary-hi: #4047e0;
+  --color-primary-dim: rgb(47 55 217 / 0.08);
+  --color-primary-line: rgb(47 55 217 / 0.3);
+  --color-t1: #0d0f14;
+  --color-t2: #51556a;
+  --color-t3: #6b6f80;
+  --color-bg: #ffffff;
+  --color-bg-1: #f7f8fa;
+  --color-bg-2: #eef0f4;
+  --color-bg-3: #dfe2e8;
+  --color-line-lo: rgb(15 17 23 / 0.06);
+  --color-line: rgb(15 17 23 / 0.1);
+  --color-line-hi: rgb(15 17 23 / 0.18);
+  --color-danger: #ef4444;
+  --color-ok: #16a34a;
+  --color-ink: #0d0f14;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 88px;
+  }
+  body {
+    @apply bg-bg font-sans text-t1;
+  }
+  ::selection {
+    background: var(--color-primary-dim);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* "Show me" highlight from the Redesign notes panel */
+[data-highlight='on'] {
+  animation: note-highlight 2.4s ease-out;
+}
+@keyframes note-highlight {
+  0%, 60% { box-shadow: 0 0 0 3px var(--color-primary), 0 0 0 10px rgb(47 55 217 / 0.15); }
+  100% { box-shadow: 0 0 0 3px transparent, 0 0 0 10px transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
