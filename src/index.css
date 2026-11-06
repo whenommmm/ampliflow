@@ -67,6 +67,27 @@
   }
 }
 
+@keyframes shimmer-text {
+  0% { background-position: 200% 50%; }
+  100% { background-position: -200% 50%; }
+}
+.text-shimmer {
+  background-image: linear-gradient(100deg, var(--color-primary) 0%, var(--color-primary) 35%, #9aa0ff 50%, var(--color-primary) 65%, var(--color-primary) 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-text 4.5s ease-in-out infinite;
+}
+@keyframes drift-a { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,30px) scale(1.15); } }
+@keyframes drift-b { 0%,100% { transform: translate(0,0) scale(1.1); } 50% { transform: translate(-70px,20px) scale(0.95); } }
+.orb-a { animation: drift-a 14s ease-in-out infinite; }
+.orb-b { animation: drift-b 17s ease-in-out infinite; }
+@keyframes radar-spin { to { transform: rotate(360deg); } }
+.radar-sweep { animation: radar-spin 3.6s linear infinite; }
+@keyframes sonar { 0% { transform: scale(0.55); opacity: 0.55; } 100% { transform: scale(1.35); opacity: 0; } }
+.sonar { animation: sonar 2.8s ease-out infinite; }
+
 @keyframes demo-countdown {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }

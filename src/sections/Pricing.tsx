@@ -5,15 +5,21 @@ import { Reveal } from '@/components/Reveal'
 import { founding, links, plans, pricingCopy } from '@/content/site'
 import { focusHeroForm } from '@/lib/scroll'
 import { cn } from '@/lib/cn'
+import { BorderTrail } from '@/components/motion-primitives/border-trail'
+import { RevealText } from '@/fx/RevealText'
+import { useReducedMotion } from 'motion/react'
 
 export function Pricing() {
+  const reduce = useReducedMotion()
   return (
     <Section id="pricing" className="py-10 sm:py-20">
       <Container>
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <MonoLabel>{founding.eyebrow}</MonoLabel>
-            <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-t1 sm:text-[40px]">{founding.title}</h2>
+            <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-t1 sm:text-[40px]">
+              <RevealText text={founding.title} />
+            </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-t2 sm:text-base">{founding.body}</p>
           </div>
           <a href={links.compare} className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline hover:underline-offset-4">
@@ -31,6 +37,9 @@ export function Pricing() {
                     p.popular ? 'border-primary shadow-[0_0_0_4px_rgb(47_55_217/0.08),0_24px_50px_-30px_rgb(47_55_217/0.6)]' : 'border-line',
                   )}
                 >
+                  {p.popular && !reduce && (
+                    <BorderTrail className="bg-gradient-to-l from-[#8b90ff] via-[#2f37d9] to-[#16a34a]" size={90} transition={{ repeat: Infinity, duration: 6, ease: 'linear' }} />
+                  )}
                   {p.popular && (
                     <span className="absolute -top-3 left-5 rounded-full bg-primary px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-white">
                       Most popular
@@ -48,7 +57,20 @@ export function Pricing() {
                   <p className="mt-5 flex items-baseline gap-2">
                     <span className="text-[40px] font-bold leading-none tracking-tight text-t1">${p.price}</span>
                     <span className="text-sm text-t3">/ month</span>
-                    {p.was && <span className="text-sm text-t3 line-through">${p.was}</span>}
+                    {p.was && (
+                      <span className="relative text-sm text-t3">
+                        ${p.was}
+                        <motion.span
+                          aria-hidden
+                          className="absolute left-[-2px] right-[-2px] top-1/2 h-px origin-left bg-t3"
+                          initial={{ scaleX: 0 }}
+                          whileInView={{ scaleX: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
+                        />
+                        <span className="sr-only"> (was)</span>
+                      </span>
+                    )}
                   </p>
                   <p className="mt-2 min-h-[20px] text-[12.5px] text-t3">{p.was ? pricingCopy.foundingNote : ' '}</p>
                   <motion.button

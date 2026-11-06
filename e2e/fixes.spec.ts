@@ -33,7 +33,7 @@ test.describe('reduced motion', () => {
   test.use({ reducedMotion: 'reduce' })
   test('Show me still draws a visible highlight', async ({ page }) => {
     await page.goto('/')
-    await page.getByRole('button', { name: /redesign notes · \d+/i }).click()
+    await page.getByRole('button', { name: 'Open redesign notes', exact: true }).click()
     const f1 = NOTES.find((n) => n.id === 'F1')!
     await page.getByRole('article').filter({ hasText: f1.title }).getByRole('button', { name: /show me/i }).click()
     await page.waitForTimeout(400)
@@ -64,5 +64,6 @@ test('the footer does not speak as Ampliflow', async ({ page }) => {
 
 test('the notes button says "Concept" on every screen size', async ({ page }) => {
   await page.goto('/')
+  await page.locator('#safety').scrollIntoViewIfNeeded()
   await expect(page.getByRole('button', { name: /redesign notes · \d+/i })).toContainText(/concept/i)
 })

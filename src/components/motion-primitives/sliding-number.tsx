@@ -1,7 +1,7 @@
 // @ts-nocheck — vendored from ibelick/motion-primitives (MIT), kept as upstream
 'use client';
 import { useEffect, useId } from 'react';
-import { MotionValue, motion, useSpring, useTransform, motionValue } from 'motion/react';
+import { type MotionValue, motion, useSpring, useTransform, motionValue } from 'motion/react';
 import useMeasure from 'react-use-measure';
 
 const TRANSITION = {

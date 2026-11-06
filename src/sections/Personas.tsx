@@ -4,6 +4,7 @@ import { ArrowUpRight, Briefcase, Target, TrendingUp, Users } from 'lucide-react
 import { Container, MonoLabel, Section } from '@/components/ui'
 import { personas } from '@/content/site'
 import { cn } from '@/lib/cn'
+import { RevealText } from '@/fx/RevealText'
 
 const ICONS = { founders: TrendingUp, sdrs: Target, recruiters: Users, agencies: Briefcase } as const
 
@@ -16,7 +17,9 @@ export function Personas() {
       <Container className="grid gap-6 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-14">
         <div>
           <MonoLabel>{personas.eyebrow}</MonoLabel>
-          <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">{personas.title}</h2>
+          <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">
+            <RevealText text={personas.title} />
+          </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-t2 sm:text-base">{personas.sub}</p>
         </div>
         <div data-note-anchor className="rounded-2xl border border-line bg-bg-1 p-1.5">

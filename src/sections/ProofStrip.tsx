@@ -2,6 +2,12 @@ import { BadgeCheck, Banknote, Cloud, MessageCircleReply } from 'lucide-react'
 import { Container, Section } from '@/components/ui'
 import { Reveal } from '@/components/Reveal'
 import { proof } from '@/content/site'
+import { CountUp } from '@/fx/CountUp'
+
+function Value({ v }: { v: string }) {
+  const m = /^(\D*)(\d+)(\D*)$/.exec(v)
+  return m && Number(m[2]) > 0 ? <CountUp to={Number(m[2])} prefix={m[1]} suffix={m[3]} /> : <>{v}</>
+}
 
 const ICONS = [Banknote, BadgeCheck, MessageCircleReply, Cloud]
 
@@ -17,7 +23,9 @@ export function ProofStrip() {
                 <li key={p.label} className="flex items-start gap-3 border-line p-4 [&:nth-child(-n+2)]:border-b md:[&:nth-child(-n+2)]:border-b-0 [&:nth-child(odd)]:border-r md:[&:not(:last-child)]:border-r sm:p-5">
                   <Icon className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
                   <div>
-                    <p className="text-[22px] font-bold leading-none tracking-tight text-t1 sm:text-[26px]">{p.value}</p>
+                    <p className="min-w-[4.5ch] text-[22px] font-bold leading-none tracking-tight text-t1 sm:text-[26px]">
+                      <Value v={p.value} />
+                    </p>
                     <p className="mt-1.5 text-[12.5px] leading-snug text-t2">{p.label}</p>
                   </div>
                 </li>

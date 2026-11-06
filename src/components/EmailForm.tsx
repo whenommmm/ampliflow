@@ -5,6 +5,8 @@ import { buildSignupUrl, isValidEmail, readRef } from '@/lib/signup'
 import { useRegisterForm } from '@/lib/formVisibility'
 import { hero, links } from '@/content/site'
 import { cn } from '@/lib/cn'
+import { ConfettiBurst } from '@/fx/Confetti'
+import { Magnetic } from '@/components/motion-primitives/magnetic'
 
 type Props = { source: 'hero' | 'closing'; tone?: 'light' | 'dark'; className?: string }
 
@@ -51,7 +53,7 @@ export function EmailForm({ source, tone = 'light', className }: Props) {
             initial={{ opacity: 0, y: 8, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             className={cn(
-              'flex items-center gap-3 rounded-[10px] border p-3 text-left',
+              'relative flex items-center gap-3 rounded-[10px] border p-3 text-left',
               dark ? 'border-white/20 bg-white/10 text-white' : 'border-line bg-white shadow-sm',
             )}
           >
@@ -63,6 +65,7 @@ export function EmailForm({ source, tone = 'light', className }: Props) {
             >
               <Check className="size-4" strokeWidth={3} aria-hidden />
             </motion.span>
+            {sent.opened && <ConfettiBurst />}
             <div className="min-w-0 flex-1 text-sm">
               <p className="font-semibold">{sent.opened ? 'Sign-up opened in a new tab.' : 'Your browser blocked the new tab.'}</p>
               <p className={cn('mt-0.5 flex flex-wrap gap-x-3', dark ? 'text-white/80' : 'text-t2')}>
@@ -108,17 +111,19 @@ export function EmailForm({ source, tone = 'light', className }: Props) {
                   dark ? 'text-white placeholder:text-white/50' : 'text-t1 placeholder:text-t3',
                 )}
               />
+              <Magnetic intensity={0.18} range={90} springOptions={{ stiffness: 260, damping: 18 }}>
               <motion.button
                 type="submit"
                 whileTap={{ scale: 0.97 }}
                 className={cn(
-                  'group inline-flex h-11 items-center justify-center gap-2 rounded-md px-5 text-[15px] font-semibold transition-colors',
+                  'group inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-5 text-[15px] font-semibold transition-colors sm:w-auto',
                   dark ? 'bg-white text-primary hover:bg-white/90' : 'bg-primary text-white hover:bg-primary-hi',
                 )}
               >
                 {hero.cta}
                 <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
               </motion.button>
+              </Magnetic>
             </div>
             <AnimatePresence>
               {error && (

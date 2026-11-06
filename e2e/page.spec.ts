@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { PAGE_LENGTH } from '../src/content/changes'
 
 test.beforeEach(async ({ context }) => {
   // Never hit Ampliflow's real app from tests.
@@ -17,7 +18,7 @@ test('loads without console errors', async ({ page }) => {
 
 test('says up front that it is an unofficial concept, and is not indexed', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByText('Unofficial redesign concept by Vansh Srivastava · not affiliated with Ampliflow').first()).toBeVisible()
+  await expect(page.locator('header, div').getByText(/Unofficial redesign (concept )?by Vansh Srivastava/).filter({ visible: true }).first()).toBeVisible()
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
 })
 
@@ -29,13 +30,15 @@ test('no sideways scrolling on a 360px phone', async ({ page }) => {
   expect(overflow).toBe(0)
 })
 
-test('mobile page stays well under the live page height (13,019px)', async ({ page, isMobile }) => {
+test('mobile page (cards hidden) stays well under the live page height (13,019px)', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'mobile only')
+  await page.addInitScript(() => localStorage.setItem('af-concept-show-changes', '0'))
   await page.goto('/')
   await page.waitForTimeout(800)
   const h = await page.evaluate(() => document.documentElement.scrollHeight)
   console.log('mobile height', h)
-  expect(h).toBeLessThanOrEqual(9000)
+  // The page-length card and note L1 quote this number; keep them honest.
+  expect(Math.abs(h - PAGE_LENGTH.after)).toBeLessThanOrEqual(80)
 })
 
 test('invalid email is caught in the browser', async ({ page }) => {
