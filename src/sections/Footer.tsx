@@ -1,0 +1,63 @@
+import { LinkedInIcon } from '@/components/icons'
+import { Logo } from '@/components/Logo'
+import { concept, footer } from '@/content/site'
+import { setNotesOpen } from '@/notes/notesStore'
+
+export function Footer() {
+  return (
+    <footer className="bg-primary text-white">
+      <div className="mx-auto grid max-w-[1120px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]">
+        <div>
+          <Logo className="h-6 w-auto text-white" />
+          <p className="mt-4 max-w-[300px] text-sm leading-relaxed text-white/75">{footer.blurb}</p>
+          <div className="mt-5 flex items-center gap-3">
+            <a href={footer.linkedin} aria-label="Ampliflow on LinkedIn" className="grid size-8 place-items-center rounded-md bg-white/10 ring-1 ring-white/20 hover:bg-white/20">
+              <LinkedInIcon className="size-4" />
+            </a>
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs ring-1 ring-white/20">
+              <span className="size-1.5 rounded-full bg-emerald-400" aria-hidden /> {footer.status}
+            </span>
+          </div>
+        </div>
+        {footer.columns.map((c) => (
+          <div key={c.title}>
+            <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/55">{c.title}</h3>
+            <ul className="mt-4 grid gap-2.5">
+              {c.links.map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className="text-sm text-white/90 hover:text-white hover:underline hover:underline-offset-4">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div className="bg-[#0b0d1a] text-white/60">
+        <div className="mx-auto flex max-w-[1120px] flex-col gap-3 px-4 py-5 text-[13px] sm:px-6 md:flex-row md:items-center md:justify-between">
+          <span>{footer.copyright}</span>
+          <span className="flex gap-4">
+            {footer.legal.map((l) => (
+              <a key={l.label} href={l.href} className="hover:text-white">
+                {l.label}
+              </a>
+            ))}
+          </span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.12em]">{footer.made}</span>
+        </div>
+        <div className="border-t border-white/10">
+          <div className="mx-auto flex max-w-[1120px] flex-wrap items-center gap-x-4 gap-y-1 px-4 py-4 text-[12px] sm:px-6">
+            <span>Redesign concept by {concept.author}. Not affiliated with Ampliflow.</span>
+            <a href={concept.portfolio} className="text-white/85 hover:text-white">Portfolio</a>
+            <a href={concept.github} className="text-white/85 hover:text-white">GitHub</a>
+            <a href={concept.linkedin} className="text-white/85 hover:text-white">LinkedIn</a>
+            <button type="button" onClick={() => setNotesOpen(true)} className="text-white/85 underline underline-offset-2 hover:text-white">
+              Read the redesign notes
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}
