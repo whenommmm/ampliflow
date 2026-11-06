@@ -1,17 +1,33 @@
-import type { ReactNode } from 'react'
+import { useRef, type PointerEvent, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { EmailForm } from '@/components/EmailForm'
 import { Container, Section } from '@/components/ui'
 import { hero } from '@/content/site'
 import { focusHeroForm } from '@/lib/scroll'
+import { RevealText } from '@/fx/RevealText'
 
 export function Hero({ children }: { children?: ReactNode }) {
   const reduce = useReducedMotion()
+  const glowRef = useRef<HTMLDivElement>(null)
+  const onMove = (e: PointerEvent<HTMLElement>) => {
+    if (reduce || e.pointerType !== 'mouse' || !glowRef.current) return
+    const r = e.currentTarget.getBoundingClientRect()
+    glowRef.current.style.setProperty('--mx', `${e.clientX - r.left}px`)
+    glowRef.current.style.setProperty('--my', `${e.clientY - r.top}px`)
+  }
   const rise = (delay: number) =>
     reduce ? {} : { initial: { opacity: 0, y: 14, filter: 'blur(6px)' }, animate: { opacity: 1, y: 0, filter: 'blur(0px)' }, transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const } }
 
   return (
-    <Section id="hero" className="overflow-hidden pt-12 sm:pt-16">
+    <Section id="hero" className="overflow-hidden pt-12 sm:pt-16" onPointerMove={onMove}>
+      <div aria-hidden className="orb-a pointer-events-none absolute -left-24 top-10 size-[360px] rounded-full bg-[#2f37d9]/15 blur-3xl" />
+      <div aria-hidden className="orb-b pointer-events-none absolute -right-24 top-40 size-[320px] rounded-full bg-[#8b90ff]/20 blur-3xl" />
+      <div
+        ref={glowRef}
+        aria-hidden
+        style={{ ['--mx' as string]: '50%', ['--my' as string]: '120px' }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[620px] bg-[linear-gradient(to_right,rgb(47_55_217/0.35)_1px,transparent_1px),linear-gradient(to_bottom,rgb(47_55_217/0.35)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(260px_circle_at_var(--mx)_var(--my),black,transparent)]"
+      />
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-[radial-gradient(ellipse_60%_55%_at_50%_0%,rgb(47_55_217/0.10),transparent_70%)]" />
       <div
         aria-hidden
@@ -35,11 +51,10 @@ export function Hero({ children }: { children?: ReactNode }) {
           <span aria-hidden className="text-t3 transition-transform group-hover:translate-x-0.5">›</span>
         </motion.button>
         <motion.h1
-          {...rise(0.06)}
           className="mt-6 max-w-[780px] text-[40px] font-bold leading-[1.02] tracking-[-0.045em] text-balance text-t1 sm:text-[64px]"
         >
-          {hero.titleStart}{' '}
-          <span className="relative whitespace-nowrap text-primary">
+          <RevealText text={hero.titleStart} fast />{' '}
+          <span className="text-shimmer relative whitespace-nowrap">
             {hero.titleAccent}
             <motion.svg
               aria-hidden
@@ -60,7 +75,11 @@ export function Hero({ children }: { children?: ReactNode }) {
             </motion.svg>
           </span>
         </motion.h1>
-        <motion.p {...rise(0.12)} className="mt-5 max-w-[590px] text-[16px] leading-relaxed text-pretty text-t2 sm:text-[18px]">
+        <motion.p
+          initial={reduce ? false : { y: 10 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-5 max-w-[590px] text-[16px] leading-relaxed text-pretty text-t2 sm:text-[18px]">
           {hero.subBefore}
           <strong className="font-semibold text-t1">{hero.subBold}</strong>
           {hero.subAfter}

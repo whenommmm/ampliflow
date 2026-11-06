@@ -14,6 +14,14 @@ export function NotesCorner() {
   const triggerRef = useRef<HTMLButtonElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const wasOpen = useRef(false)
+  // On phones the floating button would cover the hero form, so it appears once you're past the hero.
+  const [pastHero, setPastHero] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setPastHero(window.scrollY > window.innerHeight * 0.7)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (open) {
@@ -35,7 +43,10 @@ export function NotesCorner() {
         aria-label={`Redesign notes · ${NOTES.length} entries`}
         aria-expanded={open}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-[76px] left-3 z-40 inline-flex items-center gap-2 rounded-full bg-ink py-2.5 pl-3 pr-3.5 text-[13px] font-semibold text-white shadow-[0_12px_30px_-10px_rgb(15_17_23/0.6)] ring-1 ring-white/10 hover:bg-[#1c1f29] sm:bottom-5 sm:left-5"
+        className={cn(
+          'fixed bottom-[76px] left-3 z-40 inline-flex items-center gap-2 rounded-full bg-ink py-2.5 pl-3 pr-3.5 text-[13px] font-semibold text-white shadow-[0_12px_30px_-10px_rgb(15_17_23/0.6)] ring-1 ring-white/10 hover:bg-[#1c1f29] sm:bottom-5 sm:left-5',
+          !pastHero && !open && 'max-sm:hidden',
+        )}
       >
         <span className="relative">
           <NotebookPen className="size-4" aria-hidden />

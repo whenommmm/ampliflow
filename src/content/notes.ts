@@ -137,7 +137,7 @@ export const NOTES: Note[] = [
     title: 'Mobile is about 15 screens long',
     found: 'At 390 px wide the homepage is 13,019 px tall, roughly 15 phone screens of scrolling.',
     why: 'Every extra screen is another chance to leave before the next call to action.',
-    changed: 'Denser sections and swipeable rows bring this page to about 8,900 px on the same phone, roughly a third shorter, while adding the live demo, the safety panel and all three plans.',
+    changed: 'Denser sections and swipeable rows bring this page to about 9,000 px on the same phone (with the before/after cards switched off), roughly 30% shorter, while adding the live demo, the safety panel and all three plans.',
     target: { section: 'features' },
   },
   {

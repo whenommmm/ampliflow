@@ -1,8 +1,9 @@
-import { useRef } from 'react'
-import { motion, useInView, useReducedMotion } from 'motion/react'
+import { useRef, useState } from 'react'
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring } from 'motion/react'
 import { FileSpreadsheet, KeyRound, Moon, Workflow } from 'lucide-react'
 import { Container, MonoLabel, Section } from '@/components/ui'
 import { how } from '@/content/site'
+import { RevealText } from '@/fx/RevealText'
 
 const CHIPS = [
   { icon: KeyRound, text: 'Unipile OAuth' },
@@ -13,9 +14,12 @@ const CHIPS = [
 
 export function HowItWorks() {
   const ref = useRef<HTMLOListElement>(null)
-  const inView = useInView(ref, { once: true, amount: 0.4 })
   const reduce = !!useReducedMotion()
-  const on = inView || reduce
+  // The line fills as you scroll through the steps; each badge lights when the line reaches it.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.55'] })
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 })
+  const [reached, setReached] = useState(reduce ? how.steps.length : 0)
+  useMotionValueEvent(scrollYProgress, 'change', (v) => !reduce && setReached(Math.max(0, Math.min(how.steps.length, Math.floor(v * (how.steps.length - 1) + 1.05)))))
 
   return (
     <Section id="how" className="py-10 sm:py-20">
@@ -23,7 +27,9 @@ export function HowItWorks() {
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <MonoLabel>{how.eyebrow}</MonoLabel>
-            <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">{how.title}</h2>
+            <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">
+              <RevealText text={how.title} />
+            </h2>
           </div>
           <p className="max-w-[300px] text-[15px] text-t2 md:text-right">{how.side}</p>
         </div>
@@ -31,17 +37,13 @@ export function HowItWorks() {
           <span aria-hidden className="absolute left-[15px] top-2 bottom-2 w-px bg-line md:left-0 md:right-0 md:top-[15px] md:bottom-auto md:h-px md:w-auto" />
           <motion.span
             aria-hidden
-            className="absolute left-[15px] top-2 bottom-2 w-px origin-top bg-primary md:hidden"
-            initial={false}
-            animate={{ scaleY: on ? 1 : 0 }}
-            transition={{ duration: reduce ? 0 : 1.6, ease: 'easeInOut' }}
+            className="absolute left-[15px] top-2 bottom-2 w-[2px] origin-top bg-primary md:hidden"
+            style={{ scaleY: reduce ? 1 : progress }}
           />
           <motion.span
             aria-hidden
-            className="absolute left-0 right-0 top-[15px] hidden h-px origin-left bg-primary md:block"
-            initial={false}
-            animate={{ scaleX: on ? 1 : 0 }}
-            transition={{ duration: reduce ? 0 : 1.6, ease: 'easeInOut' }}
+            className="absolute left-0 right-0 top-[15px] hidden h-[2px] origin-left bg-primary md:block"
+            style={{ scaleX: reduce ? 1 : progress }}
           />
           {how.steps.map((s, i) => {
             const Chip = CHIPS[i]
@@ -49,8 +51,8 @@ export function HowItWorks() {
               <li key={s.n} className="relative pl-12 md:pl-0 md:pt-12">
                 <motion.span
                   initial={false}
-                  animate={{ backgroundColor: on ? '#2f37d9' : '#ffffff', color: on ? '#ffffff' : '#0d0f14' }}
-                  transition={{ delay: reduce ? 0 : 0.35 * i + 0.2 }}
+                  animate={i < reached ? { backgroundColor: '#2f37d9', color: '#ffffff', scale: [1, 1.18, 1] } : { backgroundColor: '#ffffff', color: '#0d0f14', scale: 1 }}
+                  transition={{ duration: 0.35 }}
                   className="absolute left-0 top-0 grid size-8 place-items-center rounded-md border border-line font-mono text-[11px] font-medium"
                 >
                   {s.n}

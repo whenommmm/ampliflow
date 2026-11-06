@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react'
+import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { BarChart3, Inbox, LayoutDashboard, ShieldCheck, Users, Workflow } from 'lucide-react'
 import { Container, Section } from '@/components/ui'
 import { DEMO_TABS, WORKFLOW_CAMPAIGN, type DemoTab } from '@/content/demo'
@@ -44,9 +44,17 @@ export function ProductDemo() {
 
   const paused = hover || touchHold || !inView
 
+  // The frame tips up out of the page as it scrolls into view.
+  const riseRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: riseRef, offset: ['start end', 'start 0.3'] })
+  const rotateX = useTransform(scrollYProgress, [0, 1], [reduce ? 0 : 22, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [reduce ? 1 : 0.9, 1])
+
   return (
-    <Section id="demo" className="pb-4 pt-12 sm:pt-16" aria-label="Product demo">
+    <Section id="demo" className="overflow-x-clip pb-4 pt-12 sm:pt-16" aria-label="Product demo">
       <Container>
+        <div ref={riseRef} className="[perspective:1400px]">
+        <motion.div style={{ rotateX, scale, transformOrigin: '50% 0%' }}>
         <div
           ref={frameRef}
           data-note-anchor
@@ -142,6 +150,8 @@ export function ProductDemo() {
               </div>
             </div>
           </div>
+        </div>
+        </motion.div>
         </div>
       </Container>
     </Section>

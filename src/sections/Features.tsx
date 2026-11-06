@@ -4,6 +4,8 @@ import { Check, Cloud, GitBranch, Laptop, Link2, MessageSquareText, Moon, PauseC
 import { Container, MonoLabel, Section } from '@/components/ui'
 import { features } from '@/content/site'
 import { cn } from '@/lib/cn'
+import { Spotlight } from '@/components/motion-primitives/spotlight'
+import { RevealText } from '@/fx/RevealText'
 
 function useOn(ref: React.RefObject<Element | null>) {
   const inView = useInView(ref, { once: true, amount: 0.5 })
@@ -18,7 +20,9 @@ export function Features() {
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <MonoLabel>{features.eyebrow}</MonoLabel>
-            <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">{features.title}</h2>
+            <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">
+              <RevealText text={features.title} />
+            </h2>
           </div>
           <p className="max-w-[320px] text-[15px] leading-relaxed text-t2 md:text-right">
             {features.sideBefore}
@@ -31,10 +35,11 @@ export function Features() {
             <li
               key={f.key}
               className={cn(
-                'flex w-[82%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-line bg-white sm:w-[60%] md:w-auto',
+                'group relative flex w-[82%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-line bg-white transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-primary-line hover:shadow-[0_24px_50px_-28px_rgb(47_55_217/0.55)] sm:w-[60%] md:w-auto',
                 i < 2 ? 'md:col-span-3' : 'md:col-span-2',
               )}
             >
+              <Spotlight className="z-0 from-[#2f37d9]/30 via-[#8b90ff]/15 to-transparent blur-2xl" size={260} />
               <div className="relative h-[150px] border-b sm:h-[170px] border-line-lo bg-bg-1 bg-[radial-gradient(rgb(15_17_23/0.08)_1px,transparent_1px)] bg-[size:14px_14px]">
                 {VISUALS[f.key]}
               </div>

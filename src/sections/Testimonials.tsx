@@ -2,6 +2,7 @@ import { Quote } from 'lucide-react'
 import { Container, MonoLabel, Section } from '@/components/ui'
 import { Reveal } from '@/components/Reveal'
 import { testimonials } from '@/content/site'
+import { RevealText } from '@/fx/RevealText'
 
 function initials(name: string) {
   return name.replace('.', '').split(' ').map((p) => p[0]).join('')
@@ -14,7 +15,9 @@ export function Testimonials() {
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <MonoLabel>{testimonials.eyebrow}</MonoLabel>
-            <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">{testimonials.title}</h2>
+            <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">
+              <RevealText text={testimonials.title} />
+            </h2>
           </div>
           <p className="hidden max-w-[340px] text-[15px] text-t2 md:block md:text-right">{testimonials.sub}</p>
         </div>

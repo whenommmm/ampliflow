@@ -4,6 +4,8 @@ import { Globe2, PauseCircle, ShieldCheck, Timer } from 'lucide-react'
 import { Container, MonoLabel, Section } from '@/components/ui'
 import { AnimatedNumber } from '@/components/motion-primitives/animated-number'
 import { safety } from '@/content/site'
+import { RevealText } from '@/fx/RevealText'
+import { TextLoop } from '@/components/motion-primitives/text-loop'
 
 const GUARD_ICONS = [PauseCircle, Globe2, Timer]
 
@@ -18,7 +20,9 @@ export function Safety() {
       <Container className="grid items-center gap-8 md:grid-cols-[1fr_440px] md:gap-14">
         <div>
           <MonoLabel>{safety.eyebrow}</MonoLabel>
-          <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">{safety.title}</h2>
+          <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">
+            <RevealText text={safety.title} />
+          </h2>
           <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-t2 sm:text-base">{safety.sub}</p>
           <ul className="mt-6 grid gap-3 sm:gap-4">
             {safety.guards.map((g, i) => {
@@ -49,6 +53,23 @@ export function Safety() {
             </span>
           </div>
           <Gauge value={safety.score} on={on} reduce={reduce} />
+          <div className="mt-1 flex items-center justify-center gap-1.5 text-[12px] text-t2" aria-live="off">
+            <span className="size-1.5 animate-pulse rounded-full bg-emerald-500" aria-hidden />
+            Watching
+            {reduce ? (
+              <span className="font-medium text-t1">limits, hours, jitter and replies</span>
+            ) : (
+              <span className="relative inline-flex h-[18px] w-[104px] overflow-hidden">
+                <TextLoop className="font-medium text-t1" interval={1.8}>
+                  <span>daily limits</span>
+                  <span>working hours</span>
+                  <span>timing jitter</span>
+                  <span>replies</span>
+                  <span>anomalies</span>
+                </TextLoop>
+              </span>
+            )}
+          </div>
           <div className="mt-2">
             <p className="mb-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-t3">Today · {safety.limitsNote.toLowerCase()}</p>
             <ul className="grid gap-2.5">
@@ -93,7 +114,14 @@ function Gauge({ value, on, reduce }: { value: number; on: boolean; reduce: bool
   const c = Math.PI * r // half circle
   return (
     <div className="relative mx-auto mt-3 h-[112px] w-[200px]" role="img" aria-label={`Safety score ${value} out of 100`}>
-      <svg viewBox="0 0 180 100" className="h-full w-full" aria-hidden>
+      {!reduce && (
+        <div aria-hidden className="pointer-events-none absolute left-1/2 top-[100px] size-[200px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full [clip-path:inset(0_0_50%_0)]">
+          <div className="radar-sweep absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,transparent_280deg,rgb(47_55_217/0.18)_360deg)]" />
+          <span className="sonar absolute inset-[30px] rounded-full ring-1 ring-primary/40" />
+          <span className="sonar absolute inset-[30px] rounded-full ring-1 ring-primary/40 [animation-delay:1.4s]" />
+        </div>
+      )}
+      <svg viewBox="0 0 180 100" className="relative h-full w-full" aria-hidden>
         <path d="M 20 90 A 70 70 0 0 1 160 90" fill="none" stroke="var(--color-bg-2)" strokeWidth="12" strokeLinecap="round" />
         <motion.path
           d="M 20 90 A 70 70 0 0 1 160 90"

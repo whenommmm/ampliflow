@@ -6,6 +6,7 @@ import { buttonClass } from '@/components/ui'
 import { links, nav } from '@/content/site'
 import { focusHeroForm } from '@/lib/scroll'
 import { cn } from '@/lib/cn'
+import { Magnetic } from '@/components/motion-primitives/magnetic'
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -62,9 +63,11 @@ export function Nav() {
           <a href={links.signIn} className="hidden rounded-md px-3 py-2 text-sm font-medium text-t1 hover:bg-bg-1 sm:inline-flex">
             {nav.signIn}
           </a>
-          <motion.button whileTap={{ scale: 0.97 }} type="button" onClick={focusHeroForm} className={buttonClass('primary', 'sm')}>
-            {nav.cta}
-          </motion.button>
+          <Magnetic intensity={0.25} range={80}>
+            <motion.button whileTap={{ scale: 0.97 }} type="button" onClick={focusHeroForm} className={buttonClass('primary', 'sm')}>
+              {nav.cta}
+            </motion.button>
+          </Magnetic>
           <button
             type="button"
             className="grid size-9 place-items-center rounded-md text-t1 hover:bg-bg-1 md:hidden"
