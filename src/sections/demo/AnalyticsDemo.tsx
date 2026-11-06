@@ -50,7 +50,7 @@ export function AnalyticsDemo({ active, reduce }: { active: boolean; reduce: boo
             <span className="font-semibold text-t1">Funnel</span>
             <span className="text-t3">Last 30 days</span>
           </figcaption>
-          <ul className="flex flex-col justify-between gap-2.5 md:h-[calc(100%-28px)]">
+          <ul className="flex flex-col justify-evenly gap-2.5 md:h-[calc(100%-28px)]">
             {FUNNEL_STAGES.map((s, i) => {
               const v = FUNNEL[s.key]
               return (
@@ -62,7 +62,7 @@ export function AnalyticsDemo({ active, reduce }: { active: boolean; reduce: boo
                       <span className="font-semibold text-t1">{v.toLocaleString('en-US')}</span>
                     </span>
                   </div>
-                  <span className="relative mt-1 block h-2.5 rounded-[4px] bg-bg-2">
+                  <span className="relative mt-1 block h-2.5 rounded-[4px] bg-bg-2 md:h-3.5">
                     <motion.span
                       className="absolute inset-y-0 left-0 rounded-[4px] bg-primary group-hover:bg-primary-hi"
                       initial={false}

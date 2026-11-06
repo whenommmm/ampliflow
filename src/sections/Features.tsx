@@ -26,7 +26,7 @@ export function Features() {
             {features.sideAfter}
           </p>
         </div>
-        <ul className="-mx-4 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-6 md:overflow-visible md:px-0 md:pb-0">
+        <ul data-note-anchor className="-mx-4 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-6 md:overflow-visible md:px-0 md:pb-0">
           {features.items.map((f, i) => (
             <li
               key={f.key}

@@ -16,6 +16,7 @@ import { Founder } from '@/sections/Founder'
 import { ClosingCta } from '@/sections/ClosingCta'
 import { Footer } from '@/sections/Footer'
 import { StickyCta } from '@/sections/StickyCta'
+import { NotesCorner } from '@/notes/NotesCorner'
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
       </main>
       <Footer />
       <StickyCta />
+      <NotesCorner />
     </MotionConfig>
   )
 }

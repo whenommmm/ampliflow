@@ -27,7 +27,7 @@ export function HowItWorks() {
           </div>
           <p className="max-w-[300px] text-[15px] text-t2 md:text-right">{how.side}</p>
         </div>
-        <ol ref={ref} className="relative mt-7 grid gap-5 md:mt-10 md:grid-cols-4 md:gap-5">
+        <ol ref={ref} data-note-anchor className="relative mt-7 grid gap-5 md:mt-10 md:grid-cols-4 md:gap-5">
           <span aria-hidden className="absolute left-[15px] top-2 bottom-2 w-px bg-line md:left-0 md:right-0 md:top-[15px] md:bottom-auto md:h-px md:w-auto" />
           <motion.span
             aria-hidden

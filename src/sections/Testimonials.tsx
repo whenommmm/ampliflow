@@ -18,7 +18,7 @@ export function Testimonials() {
           </div>
           <p className="hidden max-w-[340px] text-[15px] text-t2 md:block md:text-right">{testimonials.sub}</p>
         </div>
-        <ul className="-mx-4 mt-7 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0">
+        <ul data-note-anchor className="-mx-4 mt-7 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0">
           {testimonials.items.map((t, i) => (
             <li key={t.name} className="w-[84%] shrink-0 snap-start sm:w-[60%] md:w-auto">
               <Reveal delay={(i % 3) * 0.06} className="h-full">

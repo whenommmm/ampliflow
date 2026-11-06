@@ -19,7 +19,7 @@ export function Personas() {
           <h2 className="mt-4 text-[28px] font-bold leading-[1.08] tracking-[-0.03em] text-balance text-t1 sm:text-[40px]">{personas.title}</h2>
           <p className="mt-3 text-[15px] leading-relaxed text-t2 sm:text-base">{personas.sub}</p>
         </div>
-        <div className="rounded-2xl border border-line bg-bg-1 p-1.5">
+        <div data-note-anchor className="rounded-2xl border border-line bg-bg-1 p-1.5">
           <div role="tablist" aria-label="Who it's for" className="grid grid-cols-2 gap-1 sm:grid-cols-4">
             {personas.items.map((p) => {
               const on = p.key === key

@@ -49,6 +49,7 @@ export function ProductDemo() {
       <Container>
         <div
           ref={frameRef}
+          data-note-anchor
           onPointerEnter={(e) => e.pointerType === 'mouse' && setHover(true)}
           onPointerLeave={(e) => e.pointerType === 'mouse' && setHover(false)}
           onPointerDown={(e) => e.pointerType !== 'mouse' && setTouchHold(true)}

@@ -21,7 +21,7 @@ export function Pricing() {
           </a>
         </div>
 
-        <ul className="-mx-4 mt-7 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 pt-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0">
+        <ul data-note-anchor className="-mx-4 mt-7 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 pt-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0">
           {plans.map((p, i) => (
             <li key={p.name} className="w-[84%] shrink-0 snap-start sm:w-[60%] md:w-auto">
               <Reveal delay={i * 0.08} className="h-full">

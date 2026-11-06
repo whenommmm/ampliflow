@@ -39,7 +39,7 @@ export function EmailForm({ source, tone = 'light', className }: Props) {
   const dark = tone === 'dark'
 
   return (
-    <div ref={wrapRef} className={cn('w-full max-w-[480px]', className)} data-form={source}>
+    <div ref={wrapRef} className={cn('w-full max-w-[480px] rounded-[12px]', className)} data-form={source} data-note-anchor>
       <AnimatePresence mode="wait" initial={false}>
         {sentTo ? (
           <motion.div
