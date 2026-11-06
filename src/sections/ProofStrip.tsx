@@ -10,7 +10,7 @@ export function ProofStrip() {
     <Section id="proof" className="py-8 sm:py-10" aria-label="Proof">
       <Container>
         <Reveal>
-          <ul className="grid grid-cols-2 overflow-hidden rounded-xl border border-line bg-white md:grid-cols-4">
+          <ul data-note-anchor className="grid grid-cols-2 overflow-hidden rounded-xl border border-line bg-white md:grid-cols-4">
             {proof.map((p, i) => {
               const Icon = ICONS[i]
               return (

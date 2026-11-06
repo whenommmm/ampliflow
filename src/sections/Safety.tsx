@@ -41,7 +41,7 @@ export function Safety() {
           </p>
         </div>
 
-        <div ref={ref} className="rounded-2xl border border-line bg-white p-4 shadow-[0_24px_60px_-36px_rgb(15_17_23/0.35)] sm:p-6">
+        <div ref={ref} data-note-anchor className="rounded-2xl border border-line bg-white p-4 shadow-[0_24px_60px_-36px_rgb(15_17_23/0.35)] sm:p-6">
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-t1">Account safety</p>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 ring-1 ring-emerald-200">
