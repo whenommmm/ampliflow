@@ -36,7 +36,7 @@ export function Footer() {
         ))}
       </div>
       <div className="bg-[#0b0d1a] text-white/60">
-        <div className="mx-auto flex max-w-[1120px] flex-col gap-3 px-4 py-5 text-[13px] sm:px-6 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-3 px-4 py-4 text-[13px] sm:px-6 md:py-5">
           <span>{footer.copyright}</span>
           <span className="flex gap-4">
             {footer.legal.map((l) => (
@@ -45,7 +45,7 @@ export function Footer() {
               </a>
             ))}
           </span>
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em]">{footer.made}</span>
+          <span className="hidden font-mono text-[11px] uppercase tracking-[0.12em] md:inline">{footer.made}</span>
         </div>
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-[1120px] flex-wrap items-center gap-x-4 gap-y-1 px-4 py-4 text-[12px] sm:px-6">
