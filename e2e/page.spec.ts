@@ -54,7 +54,7 @@ test('a valid email opens sign-up with the email attached', async ({ page }) => 
   await form.getByRole('button', { name: 'Get 7 days free' }).click()
   const popup = await popupPromise
   expect(popup.url()).toBe('https://app.ampliflow.in/sign-up?email=you%40company.com')
-  await expect(form.getByRole('status')).toContainText('Sign-up opened with your email filled in')
+  await expect(form.getByRole('status')).toContainText('Sign-up opened in a new tab.')
 })
 
 test('the sticky CTA steps aside when the closing form is on screen', async ({ page }) => {

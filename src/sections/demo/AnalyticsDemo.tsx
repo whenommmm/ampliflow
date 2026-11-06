@@ -32,7 +32,7 @@ export function AnalyticsDemo({ active, reduce }: { active: boolean; reduce: boo
     <div className="flex h-full flex-col gap-3">
       <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
         {KPIS.map((k) => (
-          <div key={k.label} className="rounded-lg border border-line-lo bg-white px-3 py-2.5">
+          <div key={k.label} className="rounded-lg border border-line-lo bg-white px-3 py-2 md:py-2.5">
             <p className="text-[11px] font-medium uppercase tracking-wide text-t3">{k.label}</p>
             <p className="mt-1 font-semibold tabular-nums text-t1 text-[22px] leading-none">
               {reduce ? k.value.toLocaleString('en-US') : <AnimatedNumber value={on ? k.value : 0} springOptions={{ bounce: 0, duration: 1400 }} />}
@@ -75,7 +75,7 @@ export function AnalyticsDemo({ active, reduce }: { active: boolean; reduce: boo
             })}
           </ul>
         </figure>
-        <figure className="flex h-[150px] flex-col rounded-lg border border-line-lo bg-white p-3 md:h-auto" aria-label={`Replies per week, last 8 weeks: ${REPLIES_PER_WEEK.join(', ')}`}>
+        <figure className="flex h-[104px] flex-col rounded-lg border border-line-lo bg-white p-3 md:h-auto" aria-label={`Replies per week, last 8 weeks: ${REPLIES_PER_WEEK.join(', ')}`}>
           <figcaption className="mb-2 flex items-baseline justify-between text-xs">
             <span className="font-semibold text-t1">Replies per week</span>
             <span className="text-t3">8 wks</span>

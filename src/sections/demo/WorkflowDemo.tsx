@@ -27,18 +27,33 @@ const ICON: Record<string, typeof Eye> = {
 const LAST = WORKFLOW_STEPS.length - 1
 const HOLD_TICKS = 4
 
+const PICK_HOLD_MS = 5000
+
 export function WorkflowDemo({ active, reduce }: { active: boolean; reduce: boolean }) {
   const [tick, setTick] = useState(reduce ? LAST : 0)
+  const [held, setHeld] = useState(false)
 
   useEffect(() => {
-    if (reduce) {
+    if (reduce && !held) {
       setTick(LAST)
       return
     }
-    if (!active) return
+    if (!active || held) return
     const id = window.setInterval(() => setTick((t) => (t >= LAST + HOLD_TICKS ? 0 : t + 1)), 850)
     return () => window.clearInterval(id)
-  }, [active, reduce])
+  }, [active, reduce, held])
+
+  // A visitor picked a step: park the lead there for a moment, then let the run continue.
+  useEffect(() => {
+    if (!held) return
+    const id = window.setTimeout(() => setHeld(false), PICK_HOLD_MS)
+    return () => window.clearTimeout(id)
+  }, [held, tick])
+
+  const pick = (i: number) => {
+    setTick(i)
+    setHeld(true)
+  }
 
   const cur = Math.min(tick, LAST)
   const log = WORKFLOW_STEPS.slice(0, cur + 1).map((s) => ({ id: s.id, text: EVENTS[s.id] })).reverse()
@@ -51,9 +66,9 @@ export function WorkflowDemo({ active, reduce }: { active: boolean; reduce: bool
             <li key={step.id} className="flex flex-col items-center">
               {i > 0 && <Connector lit={i <= cur} />}
               {step.kind === 'delay' ? (
-                <DelayChip step={step} here={i === cur} passed={i < cur} />
+                <DelayChip step={step} here={i === cur} passed={i < cur} onPick={() => pick(i)} />
               ) : (
-                <Node step={step} index={i} cur={cur} />
+                <Node step={step} index={i} cur={cur} onPick={() => pick(i)} />
               )}
             </li>
           ))}
@@ -98,9 +113,12 @@ function Connector({ lit }: { lit: boolean }) {
   )
 }
 
-function DelayChip({ step, here, passed }: { step: WorkflowStep; here: boolean; passed: boolean }) {
+function DelayChip({ step, here, passed, onPick }: { step: WorkflowStep; here: boolean; passed: boolean; onPick: () => void }) {
   return (
-    <div
+    <button
+      type="button"
+      onClick={onPick}
+      aria-current={here ? 'step' : undefined}
       className={cn(
         'relative inline-flex items-center gap-1.5 rounded-full border bg-white px-2.5 py-1 font-mono text-[11px] transition-colors',
         here ? 'border-primary text-primary' : passed ? 'border-primary-line text-t2' : 'border-line text-t3',
@@ -109,11 +127,11 @@ function DelayChip({ step, here, passed }: { step: WorkflowStep; here: boolean; 
       <Clock3 className={cn('size-3', here && 'animate-spin [animation-duration:1.2s]')} aria-hidden />
       {step.title}
       {here && <Token />}
-    </div>
+    </button>
   )
 }
 
-function Node({ step, index, cur }: { step: WorkflowStep; index: number; cur: number }) {
+function Node({ step, index, cur, onPick }: { step: WorkflowStep; index: number; cur: number; onPick: () => void }) {
   const here = index === cur
   const passed = index < cur
   const Icon = ICON[step.id] ?? Play
@@ -122,11 +140,15 @@ function Node({ step, index, cur }: { step: WorkflowStep; index: number; cur: nu
     step.kind === 'logic' ? 'bg-emerald-50 text-emerald-700' : step.kind === 'event' ? 'bg-amber-50 text-amber-700' : step.kind === 'start' ? 'bg-primary text-white' : 'bg-primary-dim text-primary'
 
   return (
-    <motion.div
+    <motion.button
+      type="button"
+      onClick={onPick}
+      aria-current={here ? 'step' : undefined}
+      whileTap={{ scale: 0.98 }}
       animate={here ? { scale: 1.02 } : { scale: 1 }}
       transition={{ type: 'spring', stiffness: 400, damping: 24 }}
       className={cn(
-        'relative flex w-full items-center gap-2.5 rounded-lg border bg-white px-2.5 py-1.5 text-left transition-[border-color,box-shadow] duration-200',
+        'relative flex w-full cursor-pointer items-center gap-2.5 rounded-lg border bg-white px-2.5 py-1.5 text-left transition-[border-color,box-shadow] duration-200 hover:border-primary-line',
         here ? 'border-primary shadow-[0_0_0_4px_rgb(47_55_217/0.12),0_8px_20px_-10px_rgb(47_55_217/0.5)]' : passed ? 'border-primary-line' : 'border-line',
       )}
     >
@@ -160,7 +182,7 @@ function Node({ step, index, cur }: { step: WorkflowStep; index: number; cur: nu
         </span>
       )}
       {here && <Token />}
-    </motion.div>
+    </motion.button>
   )
 }
 

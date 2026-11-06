@@ -15,7 +15,7 @@ export function EmailForm({ source, tone = 'light', className }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [email, setEmail] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [sentTo, setSentTo] = useState<string | null>(null)
+  const [sent, setSent] = useState<{ url: string; opened: boolean } | null>(null)
   const shake = useAnimationControls()
   const reduce = useReducedMotion()
   useRegisterForm(`form-${source}`, wrapRef)
@@ -32,8 +32,11 @@ export function EmailForm({ source, tone = 'light', className }: Props) {
     // In production: POST to /api/waitlist first (keeps lead capture + referrals),
     // then redirect. This concept page never calls Ampliflow's API.
     const url = buildSignupUrl(email, readRef(window.location.search))
-    window.open(url, '_blank', 'noopener') // synchronous: stays inside the click, so pop-up blockers allow it
-    setSentTo(url)
+    // Synchronous, inside the click, so pop-up blockers allow it. No 'noopener' feature:
+    // with it window.open always returns null and we couldn't tell a blocked tab apart.
+    const w = window.open(url, '_blank')
+    if (w) w.opener = null
+    setSent({ url, opened: !!w })
   }
 
   const dark = tone === 'dark'
@@ -41,7 +44,7 @@ export function EmailForm({ source, tone = 'light', className }: Props) {
   return (
     <div ref={wrapRef} className={cn('w-full max-w-[480px] rounded-[12px]', className)} data-form={source} data-note-anchor>
       <AnimatePresence mode="wait" initial={false}>
-        {sentTo ? (
+        {sent ? (
           <motion.div
             key="done"
             role="status"
@@ -60,11 +63,16 @@ export function EmailForm({ source, tone = 'light', className }: Props) {
             >
               <Check className="size-4" strokeWidth={3} aria-hidden />
             </motion.span>
-            <div className="min-w-0 text-sm">
-              <p className="font-semibold">Saved. Sign-up opened with your email filled in.</p>
-              <a href={sentTo} target="_blank" rel="noopener" className={cn('font-medium underline-offset-2 hover:underline', dark ? 'text-white/80' : 'text-primary')}>
-                Continue to sign-up <ArrowRight className="inline size-3.5" aria-hidden />
-              </a>
+            <div className="min-w-0 flex-1 text-sm">
+              <p className="font-semibold">{sent.opened ? 'Sign-up opened in a new tab.' : 'Your browser blocked the new tab.'}</p>
+              <p className={cn('mt-0.5 flex flex-wrap gap-x-3', dark ? 'text-white/80' : 'text-t2')}>
+                <a href={sent.url} target="_blank" rel="noopener" className={cn('font-medium underline-offset-2 hover:underline', dark ? 'text-white' : 'text-primary')}>
+                  {sent.opened ? 'Didn’t open? ' : ''}Continue to sign-up <ArrowRight className="inline size-3.5" aria-hidden />
+                </a>
+                <button type="button" onClick={() => setSent(null)} className="underline-offset-2 hover:underline">
+                  Use a different email
+                </button>
+              </p>
             </div>
           </motion.div>
         ) : (

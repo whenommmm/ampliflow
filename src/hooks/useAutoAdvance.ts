@@ -24,6 +24,8 @@ export function useAutoAdvance({ count, ms, paused, enabled }: Options) {
   )
 
   useEffect(() => {
+    // A pick made while paused has already reset `remaining`; don't let it skip the next pause's bookkeeping.
+    restarted.current = false
     if (!enabled || paused) return
     const start = Date.now()
     let fired = false
