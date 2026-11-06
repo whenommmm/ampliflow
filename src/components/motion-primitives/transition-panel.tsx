@@ -1,12 +1,6 @@
 // @ts-nocheck — vendored from ibelick/motion-primitives (MIT), kept as upstream
 'use client';
-import {
-  AnimatePresence,
-  Transition,
-  Variant,
-  motion,
-  MotionProps,
-} from 'motion/react';
+import { AnimatePresence, type Transition, type Variant, motion, type MotionProps } from 'motion/react';
 import { cn } from '@/lib/cn';
 
 export type TransitionPanelProps = {

@@ -1,7 +1,7 @@
 // @ts-nocheck — vendored from ibelick/motion-primitives (MIT), kept as upstream
 'use client';
 import { cn } from '@/lib/cn';
-import { motion, SpringOptions, useSpring, useTransform } from 'motion/react';
+import { motion, type SpringOptions, useSpring, useTransform } from 'motion/react';
 import { useEffect } from 'react';
 
 export type AnimatedNumberProps = {

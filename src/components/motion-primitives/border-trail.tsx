@@ -1,7 +1,7 @@
 // @ts-nocheck — vendored from ibelick/motion-primitives (MIT), kept as upstream
 'use client';
 import { cn } from '@/lib/cn';
-import { motion, Transition } from 'motion/react';
+import { motion, type Transition } from 'motion/react';
 
 export type BorderTrailProps = {
   className?: string;

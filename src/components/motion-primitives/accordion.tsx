@@ -1,15 +1,8 @@
 // @ts-nocheck — vendored from ibelick/motion-primitives (MIT), kept as upstream
 'use client';
-import {
-  motion,
-  AnimatePresence,
-  Transition,
-  Variants,
-  Variant,
-  MotionConfig,
-} from 'motion/react';
+import { motion, AnimatePresence, type Transition, type Variants, type Variant, MotionConfig } from 'motion/react';
 import { cn } from '@/lib/cn';
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, type ReactNode } from 'react';
 
 export type AccordionContextType = {
   expandedValue: React.Key | null;

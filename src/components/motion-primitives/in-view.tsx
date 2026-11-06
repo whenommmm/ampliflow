@@ -1,13 +1,7 @@
 // @ts-nocheck — vendored from ibelick/motion-primitives (MIT), kept as upstream
 'use client';
-import { ReactNode, useRef, useState } from 'react';
-import {
-  motion,
-  useInView,
-  Variant,
-  Transition,
-  UseInViewOptions,
-} from 'motion/react';
+import { type ReactNode, useRef, useState } from 'react';
+import { motion, useInView, type Variant, type Transition, type UseInViewOptions } from 'motion/react';
 
 export type InViewProps = {
   children: ReactNode;

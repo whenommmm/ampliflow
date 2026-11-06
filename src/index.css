@@ -62,3 +62,8 @@
     scroll-behavior: auto !important;
   }
 }
+
+@keyframes demo-countdown {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}

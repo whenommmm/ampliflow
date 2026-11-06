@@ -6,6 +6,7 @@ describe('funnelRates', () => {
     expect(funnelRates({ leads: 1000, sent: 560, accepted: 267, messaged: 180, replied: 68 })).toEqual({
       sentOfLeads: 56,
       acceptRate: 48,
+      messagedOfAccepted: 67,
       replyRate: 38,
       overall: 7,
     })
@@ -14,6 +15,7 @@ describe('funnelRates', () => {
     expect(funnelRates({ leads: 0, sent: 0, accepted: 0, messaged: 0, replied: 0 })).toEqual({
       sentOfLeads: 0,
       acceptRate: 0,
+      messagedOfAccepted: 0,
       replyRate: 0,
       overall: 0,
     })

@@ -1,15 +1,8 @@
 // @ts-nocheck — vendored from ibelick/motion-primitives (MIT), kept as upstream
 'use client';
 import { cn } from '@/lib/cn';
-import { AnimatePresence, Transition, motion } from 'motion/react';
-import {
-  Children,
-  cloneElement,
-  ReactElement,
-  useEffect,
-  useState,
-  useId,
-} from 'react';
+import { AnimatePresence, type Transition, motion } from 'motion/react';
+import { Children, cloneElement, type ReactElement, useEffect, useState, useId } from 'react';
 
 export type AnimatedBackgroundProps = {
   children:
