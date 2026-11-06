@@ -6,3 +6,6 @@ reference/
 test-results/
 playwright-report/
 *.local
+tsconfig.tsbuildinfo
+.vercel
+.env*
