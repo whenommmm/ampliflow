@@ -5,6 +5,8 @@ import { prefersReducedMotion } from '@/lib/scroll'
 import { setNotesOpen } from './notesStore'
 
 const HIGHLIGHT_MS = 2400
+let clearTimer = 0
+let lastEl: HTMLElement | null = null
 
 /** Close the notes, reveal whatever the note points at, scroll to it and flash a ring around it. */
 export function showMe(target: NoteTarget) {
@@ -21,7 +23,11 @@ export function showMe(target: NoteTarget) {
       section.querySelector<HTMLElement>('[data-note-anchor]') ||
       section
     el.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center' })
+    window.clearTimeout(clearTimer)
+    lastEl?.removeAttribute('data-highlight')
+    void el.offsetWidth // restart the ring animation if the same element is shown twice
     el.setAttribute('data-highlight', 'on')
-    window.setTimeout(() => el.removeAttribute('data-highlight'), HIGHLIGHT_MS)
+    lastEl = el
+    clearTimer = window.setTimeout(() => el.removeAttribute('data-highlight'), HIGHLIGHT_MS)
   }, 80)
 }

@@ -349,7 +349,7 @@ export const footer = {
     { label: 'Terms', href: `${AF}/terms` },
     { label: 'Security', href: `${AF}/security` },
   ],
-  copyright: '© 2026 Ampliflow. All rights reserved.',
+  copyright: 'Copy, brand and product © Ampliflow · this page is an unofficial concept by Vansh Srivastava',
   made: 'Built for founders who actually run outbound',
 }
 

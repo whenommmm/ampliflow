@@ -15,9 +15,6 @@ export function Footer() {
             <a href={footer.linkedin} aria-label="Ampliflow on LinkedIn" className="grid size-8 place-items-center rounded-md bg-white/10 ring-1 ring-white/20 hover:bg-white/20">
               <LinkedInIcon className="size-4" />
             </a>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs ring-1 ring-white/20">
-              <span className="size-1.5 rounded-full bg-emerald-400" aria-hidden /> {footer.status}
-            </span>
           </div>
         </div>
         {footer.columns.map((c) => (

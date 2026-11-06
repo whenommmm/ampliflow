@@ -41,7 +41,9 @@ export function NotesCorner() {
           <NotebookPen className="size-4" aria-hidden />
           <span className="absolute -right-1 -top-1 size-2 rounded-full bg-primary ring-2 ring-ink" aria-hidden />
         </span>
-        <span className="hidden sm:inline">Redesign notes</span>
+        <span>
+          Concept<span className="hidden sm:inline"> · Redesign notes</span>
+        </span>
         <span className="rounded-full bg-white/15 px-1.5 font-mono text-[11px]">{NOTES.length}</span>
       </motion.button>
 

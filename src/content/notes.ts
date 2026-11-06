@@ -86,7 +86,7 @@ export const NOTES: Note[] = [
     group: 'Trust',
     title: 'The strongest proof is at the bottom',
     found:
-      'The $700K angel round, “zero account restrictions across the beta” and 24-hour founder replies sit in the founder note at the very end or inside collapsed FAQ answers.',
+      'The $700K angel round, “zero account restrictions across the beta” and 24-hour founder replies all sit near the very bottom: in the founder note, the FAQ intro and “Still stuck?” box, or inside a collapsed FAQ answer.',
     why: 'Buyers decide whether to trust a LinkedIn tool in the first screen, not the last.',
     changed: 'A proof strip right under the product demo, using only facts from your own page.',
     target: { section: 'proof' },

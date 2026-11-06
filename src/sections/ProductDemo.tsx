@@ -124,7 +124,7 @@ export function ProductDemo() {
                   <span className="size-1.5 rounded-full bg-emerald-500" /> Running · {WORKFLOW_CAMPAIGN.leads} leads
                 </span>
               </div>
-              <div id="demo-panel" role="tabpanel" aria-labelledby={`demo-tab-${tab}`} className="relative h-[528px] sm:h-[500px] md:h-[492px]">
+              <div id="demo-panel" role="tabpanel" aria-labelledby={`demo-tab-${tab}`} className="relative h-[528px] md:h-[492px]">
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={tab}

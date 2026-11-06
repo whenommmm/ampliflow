@@ -1,9 +1,12 @@
 export function focusHeroForm() {
-  const input = document.querySelector<HTMLInputElement>('[data-form="hero"] input[type="email"]')
   const hero = document.getElementById('hero')
-  if (!input || !hero) return
+  if (!hero) return
+  // After a signup the hero shows its success state, so fall back to its first link/button.
+  const target =
+    document.querySelector<HTMLElement>('[data-form="hero"] input[type="email"]') ??
+    document.querySelector<HTMLElement>('[data-form="hero"] a, [data-form="hero"] button')
   hero.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' })
-  window.setTimeout(() => input.focus({ preventScroll: true }), prefersReducedMotion() ? 0 : 450)
+  window.setTimeout(() => target?.focus({ preventScroll: true }), prefersReducedMotion() ? 0 : 450)
 }
 
 export function prefersReducedMotion() {
